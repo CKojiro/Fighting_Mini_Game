@@ -80,7 +80,7 @@ const player = new Fighter
         },
         takeHit:
         {
-            imageSrc: 'img/swordsman/Take_Hit-white_silhouette.png',
+            imageSrc: 'img/swordsman/Take_Hit.png',
             framesMax: 4
         },
         death:
