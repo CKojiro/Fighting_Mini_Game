@@ -80,7 +80,7 @@ const player = new Fighter
         },
         takeHit:
         {
-            imageSrc: 'img/swordsman/Take hit - white silhouette.png',
+            imageSrc: 'img/swordsman/Take_Hit-white_silhouette.png',
             framesMax: 4
         },
         death:
@@ -151,7 +151,7 @@ const enemy = new Fighter
         },
         takeHit:
         {
-            imageSrc: 'img/genji/Take hit.png',
+            imageSrc: 'img/genji/Take_hit.png',
             framesMax: 3
         },
         death:
@@ -320,7 +320,7 @@ function animate()
             width: player.health + '%'
         });
 
-        //console.log("Enemy hit player");
+        console.log("Enemy hit player");
     }
 
     //Player misses attack
