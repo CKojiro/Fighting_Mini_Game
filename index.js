@@ -16,7 +16,7 @@ const background = new Sprite
         x: 0,
         y: 0
     },
-    imageSrc: './img/background.png'
+    imageSrc: '/img/background.png'
 })
 
 const shop = new Sprite
@@ -26,7 +26,7 @@ const shop = new Sprite
         x: 600,
         y: 128
     },
-    imageSrc: './img/shop.png',
+    imageSrc: '/img/shop.png',
     scale: 2.75,
     framesMax: 6
 })
@@ -43,7 +43,7 @@ const player = new Fighter
         x: 0,
         y: 10
     },
-    imageSrc: './img/swordsman/Idle.png',
+    imageSrc: '/img/swordsman/Idle.png',
     scale: 2.5,
     framesMax: 8,
     offset:
@@ -55,37 +55,37 @@ const player = new Fighter
     {
         idle:
         {
-            imageSrc: './img/swordsman/Idle.png',
+            imageSrc: '/img/swordsman/Idle.png',
             framesMax: 8
         },
         run:
         {
-            imageSrc: './img/swordsman/Run.png',
+            imageSrc: '/img/swordsman/Run.png',
             framesMax: 8
         },
         jump:
         {
-            imageSrc: './img/swordsman/Jump.png',
+            imageSrc: '/img/swordsman/Jump.png',
             framesMax: 2
         },
         fall:
         {
-            imageSrc: './img/swordsman/Fall.png',
+            imageSrc: '/img/swordsman/Fall.png',
             framesMax: 2
         },
         attack1:
         {
-            imageSrc: './img/swordsman/Attack1.png',
+            imageSrc: '/img/swordsman/Attack1.png',
             framesMax: 6
         },
         takeHit:
         {
-            imageSrc: './img/swordsman/Take hit - white silhouette.png',
+            imageSrc: '/img/swordsman/Take hit - white silhouette.png',
             framesMax: 4
         },
         death:
         {
-            imageSrc: './img/swordsman/Death.png',
+            imageSrc: '/img/swordsman/Death.png',
             framesMax: 6
         }
     },
@@ -114,7 +114,7 @@ const enemy = new Fighter
         y: 0
     },
     color: 'blue',
-    imageSrc: './img/genji/Idle.png',
+    imageSrc: '/img/genji/Idle.png',
     scale: 2.5,
     framesMax: 4,
     offset:
@@ -126,37 +126,37 @@ const enemy = new Fighter
     {
         idle:
         {
-            imageSrc: './img/genji/Idle.png',
+            imageSrc: '/img/genji/Idle.png',
             framesMax: 4
         },
         run:
         {
-            imageSrc: './img/genji/Run.png',
+            imageSrc: '/img/genji/Run.png',
             framesMax: 8
         },
         jump:
         {
-            imageSrc: './img/genji/Jump.png',
+            imageSrc: '/img/genji/Jump.png',
             framesMax: 2
         },
         fall:
         {
-            imageSrc: './img/genji/Fall.png',
+            imageSrc: '/img/genji/Fall.png',
             framesMax: 2
         },
         attack1:
         {
-            imageSrc: './img/genji/Attack1.png',
+            imageSrc: '/img/genji/Attack1.png',
             framesMax: 4
         },
         takeHit:
         {
-            imageSrc: './img/genji/Take hit.png',
+            imageSrc: '/img/genji/Take hit.png',
             framesMax: 3
         },
         death:
         {
-            imageSrc: './img/genji/Death.png',
+            imageSrc: '/img/genji/Death.png',
             framesMax: 7
         }
     },
@@ -338,6 +338,9 @@ function animate()
 
 animate();
 
+let playerCanJump = true;
+let enemyCanJump = true;
+
 window.addEventListener('keydown', (event) =>
 {
     if (!player.dead)
@@ -353,7 +356,21 @@ window.addEventListener('keydown', (event) =>
                 player.lastKey = 'a';
                 break;
             case 'w':
-                player.velocity.y = -15;
+                if (playerCanJump)
+                {
+                    player.velocity.y = -15;
+                    console.log("Player jumped.");
+                    playerCanJump = false;
+                    setTimeout(() =>
+                    {
+                        //Delaying the jump so it is only possible when the player is on the ground
+                        playerCanJump = true;
+                    }, 420);
+                }
+                else
+                {
+                    console.log("Player jump on cooldown.");
+                }
                 break;
             case ' ':
                 player.attack();
@@ -374,7 +391,21 @@ window.addEventListener('keydown', (event) =>
                 enemy.lastKey = 'ArrowLeft';
                 break;
             case 'ArrowUp':
-                enemy.velocity.y = -15;
+                if (enemyCanJump)
+                {
+                    enemy.velocity.y = -15;
+                    console.log("Enemy jumped.");
+                    enemyCanJump = false;
+                    setTimeout(() =>
+                    {
+                        //Delaying the jump so it is only possible when the enemy is on the ground
+                        enemyCanJump = true;
+                    }, 420);
+                }
+                else
+                {
+                    console.log("Enemy jump on cooldown.");
+                }
                 break;
             case 'ArrowDown':
                 enemy.attack();
